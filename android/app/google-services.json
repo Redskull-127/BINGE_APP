@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "480977967924",
+    "project_id": "binge-meer",
+    "storage_bucket": "binge-meer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480977967924:android:e2328db64944a79f62e361",
+        "android_client_info": {
+          "package_name": "com.example.movie_app_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480977967924-o8pnqqujn6jqho73dkbm582lvr9eb797.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.movie_app_flutter",
+            "certificate_hash": "d769a64a9200436e96390855d3451a31aa009257"
+          }
+        },
+        {
+          "client_id": "480977967924-brsca9q1ier55lmnd6346ilkigl6nouq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGs-NQM_M9xUuwi1SnAkI_MvIxg7mLN8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480977967924-brsca9q1ier55lmnd6346ilkigl6nouq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
