@@ -22,16 +22,18 @@ class AvtarState extends State<Avtar> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             modified_text(
-              text: "Welcome Back !\n",
+              text: "Welcome Back !",
               color: Colors.amberAccent,
               size: 22,
             ),
-            modified_text(
-              text: Meer,
-              color: Colors.amber,
-              size: 18,
-            ),
-            GoogleUserCircleAvatar(identity: googleSignIn.currentUser)
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              // GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
+              modified_text(
+                text: Meer,
+                color: Colors.amber,
+                size: 18,
+              ),
+            ])
           ]);
     } else {
       return Column(

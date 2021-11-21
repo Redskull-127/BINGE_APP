@@ -78,22 +78,22 @@ Future<void> main() async {
         Permission.bluetooth]); // it should print PermissionStatus.granted
   }
 
-  // UnityAds.isReady(placementId: "Interstitial_Android").then((value) {
-  //   if (value == true) {
-  //     // isLoaded = true;
-  //     UnityAds.showVideoAd(
-  //         placementId: "Interstitial_Android",
-  //         listener: (state, args) {
-  //           if (state == UnityAdState.complete) {
-  //             print("VIDEO IS COMPLETED");
-  //           } else if (state == UnityAdState.skipped) {
-  //             print("VIDEO IS SKIPPED");
-  //           }
-  //         });
-  //   } else {
-  //     print("AD IS NOT READY");
-  //   }
-  // });
+  UnityAds.isReady(placementId: "Interstitial_Android").then((value) {
+    if (value == true) {
+      bool isLoaded = true;
+      UnityAds.showVideoAd(
+          placementId: "Interstitial_Android",
+          listener: (state, args) {
+            if (state == UnityAdState.complete) {
+              print("VIDEO IS COMPLETED");
+            } else if (state == UnityAdState.skipped) {
+              print("VIDEO IS SKIPPED");
+            }
+          });
+    } else {
+      print("AD IS NOT READY");
+    }
+  });
 }
 
 class MyApp extends StatelessWidget {
@@ -234,6 +234,12 @@ class _HomeState extends State<Home> {
     }
   }
 
+  // loadicon() async {
+  //   if (googleSignIn.currentUser != null) {
+  //     GoogleUserCircleAvatar(identity: googleSignIn.currentUser);
+  //   }
+  // }
+
   loadmovies() async {
     try {
       final result = await InternetAddress.lookup('google.com');
@@ -269,24 +275,77 @@ class _HomeState extends State<Home> {
   }
 
   TextEditingController emailController = new TextEditingController();
+  // Widget _Message(BuildContext context) {
+  //   return new AlertDialog(
+
+  //     // titlePadding: const EdgeInsets.only(left: 105, top: 20),
+  //     title: Column(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: [
+  //         if (googleSignIn.currentUser != null)
+  //           IconButton(
+  //             onPressed: () {},
+  //             icon: GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
+  //           )
+  //       ],
+  //     ),
+  //     content: new Column(
+  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       mainAxisSize: MainAxisSize.min,
+  //       // crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: <Widget>[
+  //         modified_text(
+  //           text: "Welcome Back !",
+  //           size: 20,
+  //         ),
+  //         modified_text(
+  //           text: googleSignIn.currentUser.displayName,
+  //           size: 20,
+  //         )
+  //       ],
+  //     ),
+  //     actions: <Widget>[
+  //       // ignore: deprecated_member_use
+  //       new FlatButton(
+  //         onPressed: () {
+  //           Navigator.of(context).pop();
+  //         },
+  //         textColor: Theme.of(context).primaryColor,
+  //         child: const Text('Close'),
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget _Message(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('ALERT!'),
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[Text("Currently In Testing!")],
-      ),
-      actions: <Widget>[
-        // ignore: deprecated_member_use
-        new FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.black,
+              Colors.blue,
+            ],
+          ),
         ),
-      ],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.min,
+
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            modified_text(
+              text: "Welcome Back !",
+              size: 20,
+            ),
+            modified_text(
+              text: googleSignIn.currentUser.displayName,
+              size: 20,
+            )
+          ],
+        ),
+      ),
     );
   }
 
@@ -297,6 +356,26 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         actions: [
+          // if (googleSignIn.currentUser != null)
+          //   GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
+          // Icon(loadicon()),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              if (googleSignIn.currentUser != null)
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => _Message(context)),
+                    );
+                  },
+                  icon: GoogleUserCircleAvatar(
+                      identity: googleSignIn.currentUser),
+                )
+            ],
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
@@ -408,52 +487,52 @@ class SecondRoute extends StatelessWidget {
     }
   }
 
-  Widget _buildPopupDialog(BuildContext context) {
-    return new AlertDialog(
-      title: const Text('SUPER GIRL'),
-      content: new Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          ElevatedButton(
-              onPressed: () async {
-                String url =
-                    'http://tajmovie.ir/Series/2/Supergirl/Supergirl.S06E17.720p.WEB.x265-MiNX.mkv';
-                await PlayerPlugin.openWithMxPlayer(url, url);
-              },
-              child: Text('EP 17'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.purple,
-              )),
-          ElevatedButton(
-              onPressed: () async {
-                await LaunchApp.openApp(
-                  androidPackageName: 'com.yoku.marumovie',
-                  openStore: false,
-                );
+  // Widget _buildPopupDialog(BuildContext context) {
+  //   return new AlertDialog(
+  //     title: const Text('SUPER GIRL'),
+  //     content: new Column(
+  //       mainAxisSize: MainAxisSize.min,
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: <Widget>[
+  //         ElevatedButton(
+  //             onPressed: () async {
+  //               String url =
+  //                   'http://tajmovie.ir/Series/2/Supergirl/Supergirl.S06E17.720p.WEB.x265-MiNX.mkv';
+  //               await PlayerPlugin.openWithMxPlayer(url, url);
+  //             },
+  //             child: Text('EP 17'),
+  //             style: ElevatedButton.styleFrom(
+  //               primary: Colors.purple,
+  //             )),
+  //         ElevatedButton(
+  //             onPressed: () async {
+  //               await LaunchApp.openApp(
+  //                 androidPackageName: 'com.yoku.marumovie',
+  //                 openStore: false,
+  //               );
 
-                // Enter the package name of the App you want to open and for iOS add the URLscheme to the Info.plist file.
-                // The `openStore` argument decides whether the app redirects to PlayStore or AppStore.
-                // For testing purpose you can enter com.instagram.android
-              },
-              child: Text('OPEN'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.purple,
-              )),
-        ],
-      ),
-      actions: <Widget>[
-        // ignore: deprecated_member_use
-        new FlatButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          textColor: Theme.of(context).primaryColor,
-          child: const Text('Close'),
-        ),
-      ],
-    );
-  }
+  //               // Enter the package name of the App you want to open and for iOS add the URLscheme to the Info.plist file.
+  //               // The `openStore` argument decides whether the app redirects to PlayStore or AppStore.
+  //               // For testing purpose you can enter com.instagram.android
+  //             },
+  //             child: Text('OPEN'),
+  //             style: ElevatedButton.styleFrom(
+  //               primary: Colors.purple,
+  //             )),
+  //       ],
+  //     ),
+  //     actions: <Widget>[
+  //       // ignore: deprecated_member_use
+  //       new FlatButton(
+  //         onPressed: () {
+  //           Navigator.of(context).pop();
+  //         },
+  //         textColor: Theme.of(context).primaryColor,
+  //         child: const Text('Close'),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
