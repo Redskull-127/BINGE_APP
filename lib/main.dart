@@ -234,11 +234,13 @@ class _HomeState extends State<Home> {
     }
   }
 
-  // loadicon() async {
-  //   if (googleSignIn.currentUser != null) {
-  //     GoogleUserCircleAvatar(identity: googleSignIn.currentUser);
-  //   }
-  // }
+  loadicon() async {
+    await Future.delayed(Duration(seconds: 5));
+    if (googleSignIn.currentUser != null) {
+      GoogleUserCircleAvatar(identity: googleSignIn.currentUser);
+      print("Icon Found");
+    }
+  }
 
   loadmovies() async {
     try {
@@ -275,47 +277,7 @@ class _HomeState extends State<Home> {
   }
 
   TextEditingController emailController = new TextEditingController();
-  // Widget _Message(BuildContext context) {
-  //   return new AlertDialog(
 
-  //     // titlePadding: const EdgeInsets.only(left: 105, top: 20),
-  //     title: Column(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         if (googleSignIn.currentUser != null)
-  //           IconButton(
-  //             onPressed: () {},
-  //             icon: GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
-  //           )
-  //       ],
-  //     ),
-  //     content: new Column(
-  //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       mainAxisSize: MainAxisSize.min,
-  //       // crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[
-  //         modified_text(
-  //           text: "Welcome Back !",
-  //           size: 20,
-  //         ),
-  //         modified_text(
-  //           text: googleSignIn.currentUser.displayName,
-  //           size: 20,
-  //         )
-  //       ],
-  //     ),
-  //     actions: <Widget>[
-  //       // ignore: deprecated_member_use
-  //       new FlatButton(
-  //         onPressed: () {
-  //           Navigator.of(context).pop();
-  //         },
-  //         textColor: Theme.of(context).primaryColor,
-  //         child: const Text('Close'),
-  //       ),
-  //     ],
-  //   );
-  // }
   Widget _Message(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -332,17 +294,59 @@ class _HomeState extends State<Home> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.min,
-
-          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            modified_text(
-              text: "Welcome Back !",
-              size: 20,
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child:
+                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+                modified_text(
+                    text: "Welcome Back !\n", size: 25, color: Colors.amber),
+                modified_text(
+                  text: googleSignIn.currentUser.displayName,
+                  size: 20,
+                  color: Colors.amberAccent,
+                ),
+                // GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
+              ]),
             ),
-            modified_text(
-              text: googleSignIn.currentUser.displayName,
-              size: 20,
-            )
+            Container(
+              height: 50.0,
+              width: 50.0,
+              child: GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 50, right: 50),
+              child: MaterialButton(
+                color: Colors.black,
+                elevation: 10,
+                child: Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 30.0,
+                      width: 30.0,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/alien.png'),
+                            fit: BoxFit.cover),
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 60,
+                    ),
+                    Text(
+                      "Sign OUT",
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+                onPressed: () {
+                  signout(context);
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -356,9 +360,6 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         actions: [
-          // if (googleSignIn.currentUser != null)
-          //   GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
-          // Icon(loadicon()),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -409,11 +410,12 @@ class _HomeState extends State<Home> {
 
         backgroundColor: Colors.transparent,
       ),
+      bottomNavigationBar: Container(
+          height: 50.0, color: Colors.transparent, child: HomeScreen()),
       body: ListView(
         children: [
           Avtar(),
 
-          HomeScreen(),
           Peoples(peoples: peoples),
           TV(tv: tv),
           TrendingMovies(

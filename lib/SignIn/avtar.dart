@@ -29,7 +29,7 @@ class AvtarState extends State<Avtar> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
               // GoogleUserCircleAvatar(identity: googleSignIn.currentUser),
               modified_text(
-                text: Meer,
+                text: Meer + "\n",
                 color: Colors.amber,
                 size: 18,
               ),
